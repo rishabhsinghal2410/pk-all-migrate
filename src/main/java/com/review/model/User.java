@@ -1,5 +1,7 @@
 package com.review.model;
 
+import com.google.common.base.Strings;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Date;
@@ -55,7 +57,12 @@ public class User {
     }
 
     public String getContactNo() {
-        return contactNo;
+        if (contactNo.startsWith("+91") && contactNo.length() == 13)
+            return contactNo;
+        else if (contactNo.length() == 10)
+            return "+91" + contactNo;
+
+        return null;
     }
 
     public void setContactNo(String contactNo) {
@@ -100,5 +107,42 @@ public class User {
 
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+    }
+
+    public String getDisplayName() {
+
+        if (firstName == null)
+            return "";
+
+        if (lastName == null)
+            return firstName.trim();
+
+        return (this.firstName.trim() + " " + this.lastName.trim()).trim();
+    }
+
+    public boolean isValid() {
+        if (Strings.isNullOrEmpty(this.firstName))
+            return false;
+
+        if (Strings.isNullOrEmpty(this.emailId))
+            return false;
+
+        return !Strings.isNullOrEmpty(this.password) || this.password.length() >= 6;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", contactNo='" + contactNo + '\'' +
+                ", password='" + password + '\'' +
+                ", emailId='" + emailId + '\'' +
+                ", userType=" + userType +
+                ", state=" + state +
+                ", dateCreated=" + dateCreated +
+                '}';
     }
 }

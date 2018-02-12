@@ -1,10 +1,8 @@
 package com.review.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "review_content")
@@ -102,5 +100,21 @@ public class Post {
 
     public void setState(Integer state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id='" + id + '\'' +
+                ", postHeader='" + postHeader + '\'' +
+                ", postContent='" + postContent + '\'' +
+                ", landingUrl='" + landingUrl + '\'' +
+                ", coverPic='" + coverPic + '\'' +
+                ", userCreated='" + userCreated + '\'' +
+                ", dateUploaded=" + dateUploaded +
+                ", parentSite='" + parentSite + '\'' +
+                ", facebookId='" + facebookId + '\'' +
+                ", state=" + state +
+                '}';
     }
 }
